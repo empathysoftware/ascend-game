@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerTHINK : MonoBehaviour {
 
-		bool win = false, lose = false; // 6/30/18 @2243
+		bool win = false, lose = false;
 		
 		private Vector3 mouseClickPosition;
 		public Vector3 mouseWorldPosition;
@@ -16,14 +16,10 @@ public class PlayerTHINK : MonoBehaviour {
 
 		Animator giggle;
 
-		//	7/01/17: character movement 
-		bool canDrag/*7-1-17@5:37pm*/;
-
 		// Use this for initialization
 		void Start() 
 		{
-			//	reset isTrigged to 'no'
-			win = false;// omitting this line overflows the stack
+			win = false;
 			lose = false;
 			
 			gameOver.SetActive (false);
@@ -42,12 +38,6 @@ public class PlayerTHINK : MonoBehaviour {
 			if (lose == true)
 			{
 				gameOver.SetActive (true);
-				//  stop the character
-				//Start();
-				//  then restart the character's movement 
-				//  after a new movementment command is issued
-				//Update();
-				//print("debug flag1");
 			}
 
 			if (win == true) 
@@ -84,40 +74,23 @@ public class PlayerTHINK : MonoBehaviour {
 			if (Input.GetKey("space")) {
 				
 				pulse.SetActive(true);
-			} // - rc 14:40 est 9/5/18
+			}
 
 		}
 		
 		void OnTriggerEnter2D(Collider2D other) // THE OBJECT WITH THE FUCKING SCRIPT NEEDS TO BE THE FUCKING TRIGGER
 		{
 			if (other.tag == "WinZone")
-			{
-			//{	
+			{	
 				//  Upon collision with an invisible wall, player is stopped instead of
 				//  bouncing off of the wall (this is for aesthetics)
 				win = true;
 				Debug.Log ("trigger");
-			//}
 			}	
 			else if (other.tag == "LoseZone")
 				lose = true;
 			
 		}
-		//	7-1-17, next 9 lines
-		void OnMouseDrag()
-		{
-			//canDrag = true;//	(line that dictates the player can only click while hovered over character)
-			//print(canDrag);
-		}
 	}
-
-	///	edit log
-	/// 6-27-17: creation
-	/// 7-01-17: (...)
-	/// 9-08-17: moved the debug line & invisible line logic to their appropriate separate scripts
-	/// 9-17-17: moved invisible wall logic back to ChracterMovement, apparently it needs to be here, probably 
-	/// 		 because the way I have Start() being called here will interrupt the transform's movement.
-	/// @6:40pm: Added logic to ensure ally only stops when hitting the invisible wall trigger, not just any trigger
-	/// 
 
 
